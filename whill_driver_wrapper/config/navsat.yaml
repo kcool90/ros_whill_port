@@ -1,0 +1,37 @@
+navsat_transform:
+  ros__parameters:
+    use_sim_time: false  # Set to true if running in a simulated environment
+    frequency: 30.0  # Rate at which the node runs (Hz)
+
+    # Input topics
+    gps_topic: "/fix"  # GPS data from the GNSS receiver
+    #imu_topic: "/earth/imu/data"  # IMU data to aid fusion
+    odom_topic: "/odom_imu"
+
+    # Output topic
+    output_topic: "/odometry/gps"  # The output odometry message
+
+    # Coordinate Frame Configurations
+    world_frame: "map"  # Change to "odom" if using odometry frame
+    # broadcast_utm_transform: true  # Whether to publish a TF transform for UTM
+    broadcast_cartesian_transform: true  # Set to true if you want Cartesian transform
+
+    # Initial GPS reference (optional, improves accuracy)
+    magnetic_declination_radians: 0.0  # Adjust for local magnetic declination
+    yaw_offset: 0.0  # Adjust if the IMU heading is off by a known amount
+
+    # GPS Data Processing
+    wait_for_datum: false  # Set to true if using a datum position
+    zero_altitude: true  # If true, sets altitude to 0 to avoid vertical drift
+    use_odometry_yaw: true  # If true, use odometry instead of IMU yaw
+    transform_timeout: 0.1  # Timeout for TF lookups
+
+    # UTM Zone Configuration (optional, auto-detected otherwise)
+    # utm_zone: 15  # Set to your specific UTM zone if known
+    # utm_north: True  # Set True if in the northern hemisphere
+
+    # TF Frame Names
+    imu_frame_id: "imu_link"
+    gps_frame_id: "gps_link"
+    odom_frame_id: "odom"
+    base_link_frame_id: "base_link" #added this, might not need
